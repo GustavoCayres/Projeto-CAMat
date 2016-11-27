@@ -42510,3 +42510,57 @@ Processing by HomeController#index as */*
   [1m[35mCACHE (0.0ms)[0m  SELECT "feeds".* FROM "feeds" WHERE "feeds"."id" = 1 LIMIT 1
   Rendered home/index.html.haml (4.0ms)
 Completed 200 OK in 21.7ms (ActiveRecord: 0.6ms)
+Connecting to database specified by database.yml
+  [1m[36m (13.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20150912011634)
+Migrating to AddPasswordDigestToUsers (20150912012351)
+Migrating to AddIndexToUsersEmail (20150912013101)
+Migrating to AddDocumentoToUsers (20150912013621)
+Migrating to AddIndexToUsersDocumento (20150912014022)
+Migrating to AddTelefoneToUsers (20150916012827)
+Migrating to CreateLockers (20150927063259)
+Migrating to CreateAccounts (20150927214126)
+Migrating to AddAdminToUser (20150929135725)
+Migrating to FixColumnName (20150929165828)
+Migrating to RemoveExpireDateFromAccounts (20150929183546)
+Migrating to AddExpireDateToAccounts (20150929183650)
+Migrating to CreateRaffles (20151107232811)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (417.2ms)[0m  [1mCREATE TABLE "raffles" ("id" serial primary key, "start" timestamp, "finish" timestamp, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (0.8ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20151107232811')
+  [1m[36m (34.6ms)[0m  [1mCOMMIT[0m
+Migrating to CreateDelayedJobs (20151110145042)
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36m (166.9ms)[0m  [1mCREATE TABLE "delayed_jobs" ("id" serial primary key, "priority" integer DEFAULT 0 NOT NULL, "attempts" integer DEFAULT 0 NOT NULL, "handler" text NOT NULL, "last_error" text, "run_at" timestamp, "locked_at" timestamp, "failed_at" timestamp, "locked_by" character varying(255), "queue" character varying(255), "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (73.3ms)[0m  CREATE INDEX "delayed_jobs_priority" ON "delayed_jobs" ("priority", "run_at")
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20151110145042')[0m
+  [1m[35m (34.1ms)[0m  COMMIT
+Migrating to AddingForeign (20151110160028)
+  [1m[36m (0.7ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.7ms)[0m  ALTER TABLE "raffles" ADD COLUMN "user_id" integer
+  [1m[36m (0.6ms)[0m  [1mALTER TABLE "users" ADD COLUMN "raffle_id" integer[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20151110160028')
+  [1m[36m (25.1ms)[0m  [1mCOMMIT[0m
+Migrating to CreateFeeds (20151207234738)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (70.5ms)[0m  [1mCREATE TABLE "feeds" ("id" serial primary key, "msg" character varying(255), "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20151207234738')
+  [1m[36m (22.2ms)[0m  [1mCOMMIT[0m
+Migrating to CreateRequirementRaffles (20151209013711)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (60.5ms)[0m  [1mCREATE TABLE "requirement_raffles" ("id" serial primary key, "finish" timestamp, "start" timestamp, "locker" character varying(255), "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (0.5ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20151209013711')
+  [1m[36m (22.1ms)[0m  [1mCOMMIT[0m
+Migrating to AddForeignRequerimentRaffle (20151209015749)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.8ms)[0m  [1mALTER TABLE "requirement_raffles" ADD COLUMN "user_id" integer[0m
+  [1m[35m (0.7ms)[0m  ALTER TABLE "users" ADD COLUMN "requirement_raffle_id" integer
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20151209015749')[0m
+  [1m[35m (4.7ms)[0m  COMMIT
+Migrating to AddResetToUsers (20151209220834)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.7ms)[0m  ALTER TABLE "users" ADD COLUMN "reset_digest" character varying(255)
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "users" ADD COLUMN "reset_sent_at" timestamp[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20151209220834')
+  [1m[36m (5.9ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
