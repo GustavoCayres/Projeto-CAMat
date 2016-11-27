@@ -1,0 +1,27 @@
+.m-content
+  %h1 Disponibilidade de Armários
+
+  %table#users
+    %thead
+      %tr
+        %th Armário
+        %th Preço
+        %th Armário
+        %th Preço
+        %th Armário
+        %th Preço
+        %th Armário
+        %th Preço
+    %tbody
+      - @lockers.each do |code, occupation|
+        -if (code[1]+code[2]).to_i % 4 == 1
+          %tr
+        -if occupation == 'Livre'
+          %td
+            %span.green
+              = link_to "#{code}", requirement_path(locker: code, start: @time, finish: 1.week.from_now), method: :post
+        -else
+          %td
+            %span.red
+              = code
+        %td R$#{locker_price(code)},00
